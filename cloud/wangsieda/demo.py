@@ -422,6 +422,11 @@ def main(argv=None):
     ap.add_argument("--package", metavar="OUT", help="write an offline, double-click copy of the demo console to OUT")
     ap.add_argument("--port", type=int, default=int(os.environ.get("WANGSI_DEMO_PORT", 18766)))
     a = ap.parse_args(argv)
+    if os.name == "nt" and not (a.package or a.no_serve):
+        # the console service uses POSIX-only pieces (fcntl lock, setsid workers, /proc), so fail early with a clear hint
+        sys.exit("The local demo console runs on macOS or Linux only.\n"
+                 "On Windows, use WSL: run `wsl --install` once, then `python3 wangsi.py demo` inside the WSL terminal.\n"
+                 "start.bat is for connecting to a Linux compute host (see README), not for the local demo.")
     os.environ["WANGSI_PORT"] = str(a.port)          # before anything imports config
     if a.rebuild or not (DEMO / "var" / "wangsi.db").exists():
         print("generating the synthetic demo design ...", flush=True)

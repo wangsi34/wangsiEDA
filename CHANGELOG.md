@@ -1,8 +1,12 @@
 # 更新记录
 
-## 未发布
+## v1.5.1（2026-11-23）
 
 - 修复 macOS 本地演示读取 Linux 的 `/proc/meminfo` 导致顶部状态栏和总览页报错的问题。macOS 上的可用内存和整机评测器进程数显示为“—”。
+- Windows 上直接运行 `python wangsi.py demo` 时给出明确提示（本地演示控制台只支持 macOS / Linux，Windows 请用 WSL），不再报 `fcntl` 导入错误；README 注明 `start.bat` 用于连接远程 Linux 计算主机。
+- README 开头说明本仓库包含和不包含的部分：ECO 构建器与签核评测器需自行接入。
+- 中文 README 更正工具数（29）和最低 Python 版本（3.9）。
+- CI：Python 3.9 改用 uv 安装（ubuntu-latest 已不提供 3.9）。
 
 ## v1.5.0（公开发布候选）
 

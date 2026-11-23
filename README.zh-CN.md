@@ -2,11 +2,13 @@
 
 [English](README.md) | 中文
 
-版本 1.5.0 · MIT · Python 3.9+（只依赖标准库） · 前端无第三方依赖
+版本 1.5.1 · MIT · Python 3.9+（只依赖标准库） · 前端无第三方依赖
 
 **面向 F2F 3D IC 的签核驱动 ECO 收敛平台**：多 Agent 规划，持久化作业引擎，3D 签核评审，以及 MCP 工具接口。
 
 wangsiEDA 不重新实现 EDA 流程，而是把你已经验证过的工具链统一成一个可调度、可观测、可回溯的服务。这些工具链包括 ECO 构建器、签核评测器、STA 回读和签核门。设计数据、EDA 工具和模型调用都留在计算主机上，本地只需要一个启动器和浏览器。
+
+> **本仓库包含什么。** 平台本身（作业引擎、Agent、守卫、签核门、3D 查看器、控制台、MCP 服务）、基于开源工具的模块 RTL→GDS 流程，以及合成演示。F2F 的 **ECO 构建器和签核评测器不在本仓库中**：接入你自己的构建器和评测器后才能运行 ECO 评测与收敛（见下文“安装与配置”和 [docs/配置参考.md](docs/配置参考.md)）。不接入时仍可使用演示、模块流程和 DEF/LEF 查看器。
 
 ---
 
@@ -15,7 +17,7 @@ wangsiEDA 不重新实现 EDA 流程，而是把你已经验证过的工具链�
 | 模块 | 说明 |
 |---|---|
 | 数据目录（catalog） | 只读索引已有评测结果（`RESULT.json` / `REJUDGE.json`）、标准签核状态、候选 ECO 程序池和模型调用账本，写入 SQLite |
-| 工具层（tools） | 26 个工具，各自带 JSON Schema、副作用类别（read / compute / runtime / llm / asset）、调度池、超时和重试策略 |
+| 工具层（tools） | 29 个工具，各自带 JSON Schema、副作用类别（read / compute / runtime / llm / asset）、调度池、超时和重试策略 |
 | 作业引擎（engine） | 动态 DAG：每一步是独立的 worker 进程，并有自己的编号目录；状态存在 SQLite；服务重启后自动重新接管运行中的步骤；支持超时、重试、取消和单步重试 |
 | 调度池（许可证） | evaluator / openroad / build / llm / cpu。evaluator 池统计整台主机上所有评测器进程，并受负载、磁盘、内存准入门约束 |
 | 流程（flows） | `eco_eval`：单个 ECO 程序的完整签核<br>`eco_closure`：Agent 规划 → 审查 → 并行评测 → 反思<br>`block_flow`：模块级 RTL → GDS 闭环 |
@@ -50,19 +52,19 @@ wangsiEDA 不重新实现 EDA 流程，而是把你已经验证过的工具链�
 ## 目录结构
 
 ```
-start.bat                      Windows 一键启动（检查服务 → 建立隧道 → 打开浏览器）
+start.bat                      Windows 一键连接远程计算主机（检查服务 → 建立隧道 → 打开浏览器）；不用于本地演示
 wangsi.py                      启动器：up | deploy | status | mcp
 cloud/                         部署到计算主机的全部内容
   bin/wangsictl                服务控制：start | stop | restart | status | token | refresh | mcp | selftest
   wangsi_config.example.json   配置模板（复制为 wangsi_config.json 后填写）
   prompts/*.txt.example        提示词模板（复制为 *.txt 后自行编写）
   blocks/rv_alu/               示例模块：RTL、自检 testbench、规格、CONTRACT.json
-  wangsieda/                   Python 包（只依赖标准库，Python ≥ 3.10）
+  wangsieda/                   Python 包（只依赖标准库，Python ≥ 3.9）
 ```
 
 ## 先看演示（不需要任何私有数据）
 
-在 macOS 或 Linux 上解压项目，打开终端，进入含有 `wangsi.py` 的目录。查看示例只需 Python 3.9+ 和浏览器。运行以下命令。
+在 macOS 或 Linux 上（Windows 请在 [WSL](https://learn.microsoft.com/zh-cn/windows/wsl/install) 中）解压项目，打开终端，进入含有 `wangsi.py` 的目录。查看示例只需 Python 3.9+ 和浏览器。运行以下命令。
 
 ```bash
 python3 wangsi.py demo

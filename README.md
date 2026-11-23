@@ -2,7 +2,7 @@
 
 English | [中文](README.zh-CN.md)
 
-Version 1.5.0 · MIT · Python 3.9+, standard library only · no front-end dependencies
+Version 1.5.1 · MIT · Python 3.9+, standard library only · no front-end dependencies
 
 **A signoff-driven ECO closure platform for face-to-face (F2F) 3D ICs.** It wraps the tools you have already validated
 (ECO builder, signoff evaluator, STA readback, signoff gates) into one service that schedules, records and explains every
@@ -13,9 +13,14 @@ step: durable job engine, LLM agents behind deterministic guards, a 3D signoff r
 wangsiEDA does not re-implement place-and-route or STA. Design data, EDA tools and model calls stay on your compute host;
 your laptop only needs a browser (and an SSH tunnel for a remote host).
 
+> **What is in this repository.** The platform itself (job engine, agents, guards, gates, 3D viewer, console, MCP server),
+> the block RTL-to-GDS flow on open-source tools, and a synthetic demo. The F2F **ECO builder and signoff evaluator are not
+> included**: ECO evaluation and closure run only after you plug in your own (see [Install on a Linux compute host](#install-on-a-linux-compute-host)
+> and [docs/配置参考.md](docs/配置参考.md)). Without them you can still use the demo, the block flow and the DEF/LEF viewer.
+
 ## Try the demo first (no private data needed)
 
-On macOS or Linux, open a terminal in the extracted project directory containing `wangsi.py` and run the following command with Python 3.9+. Viewing the bundled design requires only Python and a browser.
+On macOS or Linux (on Windows, inside [WSL](https://learn.microsoft.com/windows/wsl/install)), open a terminal in the extracted project directory containing `wangsi.py` and run the following command with Python 3.9+. Viewing the bundled design requires only Python and a browser.
 
 ```bash
 python3 wangsi.py demo

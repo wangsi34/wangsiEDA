@@ -1,0 +1,7 @@
+{
+ "block": "rv_alu",
+ "tb_sha256": "",
+ "clock_period_ns": 1.55,
+ "sdc": "create_clock [get_ports clk] -name core_clock -period 1.55\nset_input_delay 0.1 -clock core_clock [delete_from_list [all_inputs] [get_ports clk]]\nset_output_delay 0.1 -clock core_clock [all_outputs]\nset_load 0.005 [all_outputs]\n",
+ "note": "tb_sha256 留空时首次运行会提示；请运行 python3 -m wangsieda.cli 之前用 sha256sum tb_rv_alu.v 自行填写以冻结测试平台"
+}

@@ -1,0 +1,2 @@
+# 在此编写 reflector 的系统提示词（删除本行后生效）。
+# 输出格式要求：反思 Agent：输出 JSON {lesson, trigger, action, evidence}。

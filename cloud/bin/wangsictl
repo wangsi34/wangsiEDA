@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# wangsiEDA control: start | stop | status | restart | token | refresh | mcp | selftest | doctor | demo | prompt-eval | freeze-tb <block>
+set -u
+R="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$R"
+PIDF="$R/var/daemon.pid"
+mkdir -p "$R/var"
+running() { [ -f "$PIDF" ] && kill -0 "$(cat "$PIDF")" 2>/dev/null && grep -q wangsieda.daemon "/proc/$(cat "$PIDF")/cmdline" 2>/dev/null; }
+case "${1:-status}" in
+  start)
+    if running; then echo "running pid $(cat "$PIDF")"; exit 0; fi
+    PYTHONPATH="$R" setsid nohup nice -n 5 python3 -B -u -m wangsieda.daemon >> "$R/var/daemon.log" 2>&1 < /dev/null &
+    for i in $(seq 1 30); do sleep 0.5; running && break; done
+    running && echo "started pid $(cat "$PIDF")" || { echo "failed to start"; tail -20 "$R/var/daemon.log"; exit 1; } ;;
+  stop)
+    if running; then kill "$(cat "$PIDF")"; for i in $(seq 1 20); do running || break; sleep 0.25; done; echo "stopped (step workers keep running and are re-attached on next start)"; else echo "not running"; fi ;;
+  restart) "$0" stop; sleep 1; "$0" start ;;
+  status) if running; then echo "running pid $(cat "$PIDF")"; else echo "stopped"; fi ;;
+  token) cat "$R/var/token" ;;
+  refresh) PYTHONPATH="$R" python3 -B -c "from wangsieda import catalog; print(catalog.refresh(full=True))" ;;
+  mcp) PYTHONPATH="$R" exec python3 -B -u -m wangsieda.mcp_server ;;
+  selftest) PYTHONPATH="$R" python3 -B -m wangsieda.selftest ;;
+  doctor) shift; PYTHONPATH="$R" python3 -B -m wangsieda.doctor "$@" ;;
+  demo) shift; PYTHONPATH="$R" exec python3 -B -u -m wangsieda.demo "$@" ;;
+  prompt-eval) shift; PYTHONPATH="$R" python3 -B -u -m wangsieda.prompt_eval "$@" ;;
+  freeze-tb) shift; PYTHONPATH="$R" python3 -B -m wangsieda.doctor freeze-tb "$@" ;;
+  *) echo "usage: wangsictl start|stop|restart|status|token|refresh|mcp|selftest|doctor|demo|prompt-eval|freeze-tb <block>"; exit 2 ;;
+esac

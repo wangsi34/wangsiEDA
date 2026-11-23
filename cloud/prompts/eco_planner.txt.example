@@ -1,0 +1,2 @@
+# 在此编写 eco_planner 的系统提示词（删除本行后生效）。
+# 输出格式要求：ECO 规划 Agent：输出 JSON（调用只读工具 {thought, tool, args} 或 {thought, final:{programs, hypothesis, risks}}）；可用占位符 BUDGET 表示评测预算。

@@ -1,0 +1,67 @@
+name: ci
+on:
+  push:
+  pull_request:
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Compile
+        run: python -m compileall -q cloud/wangsieda wangsi.py make_offline_package.py
+      - name: Unit tests
+        working-directory: cloud
+        run: python -B -m unittest discover -v tests
+      - name: Self-test (fresh install)
+        working-directory: cloud
+        run: bin/wangsictl selftest
+      - name: Prompt evaluator separates good from bad replies (mock model)
+        working-directory: cloud
+        run: |
+          python -B -m wangsieda.prompt_eval --mock good --out /tmp/pe_good
+          python -B -m wangsieda.prompt_eval --mock bad --out /tmp/pe_bad
+          python - <<'PY'
+          import json
+          g = json.load(open("/tmp/pe_good/results.json")); b = json.load(open("/tmp/pe_bad/results.json"))
+          mg = sum(r["score"] for r in g) / len(g); mb = sum(r["score"] for r in b) / len(b)
+          print(f"good {mg:.3f}  bad {mb:.3f}")
+          assert mg > 0.95 and mb < 0.5
+          PY
+
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Generate the demo and query the API
+        working-directory: cloud
+        run: |
+          python -B -m wangsieda.demo --no-serve
+          (WANGSI_DEMO_PORT=18799 python -B -m wangsieda.demo > /tmp/demo.log 2>&1 &)
+          for i in $(seq 1 30); do grep -q "token=" /tmp/demo.log && break; sleep 1; done
+          TOKEN=$(grep -o "token=[A-Za-z0-9_-]*" /tmp/demo.log | head -1 | cut -d= -f2)
+          sleep 2
+          for p in /api/config /api/overview /api/workspace "/api/scene?case=demo_f2f&label=X0" /api/job/demo-closure-0001 /api/design/demo_f2f; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" -H "X-Wangsi-Token: $TOKEN" "http://127.0.0.1:18799$p"); echo "$p $code"; test "$code" = 200
+          done
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:18799/api/overview)" = 401
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: JavaScript syntax
+        run: for f in cloud/wangsieda/ui/*.js; do node --check "$f"; done

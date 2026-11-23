@@ -1,0 +1,2 @@
+# 在此编写 pnr_diagnose 的系统提示词（删除本行后生效）。
+# 输出格式要求：物理设计 Agent：输出 JSON {diagnosis, knobs, resume_from, expected_effect}。

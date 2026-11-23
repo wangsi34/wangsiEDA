@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+cloud/var/
+cloud/jobs/
+cloud/derived/
+cloud/demo_root/
+cloud/wangsi_config.json
+cloud/prompts/*.txt
+!cloud/prompts/*.txt.example
+*.env
+.token*

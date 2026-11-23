@@ -1,0 +1,20 @@
+[Unit]
+Description=wangsiEDA signoff ECO closure service
+After=network.target
+
+# 安装：复制为 /etc/systemd/system/wangsieda@.service，然后 systemctl enable --now wangsieda@<运行用户>
+# 安装目录默认 /opt/wangsieda，按实际修改 WorkingDirectory 和 PYTHONPATH
+
+[Service]
+Type=simple
+User=%i
+WorkingDirectory=/opt/wangsieda
+Environment=PYTHONPATH=/opt/wangsieda
+EnvironmentFile=-/etc/wangsieda/llm.env
+ExecStart=/usr/bin/python3 -B -u -m wangsieda.daemon
+Restart=on-failure
+RestartSec=5
+Nice=5
+
+[Install]
+WantedBy=multi-user.target

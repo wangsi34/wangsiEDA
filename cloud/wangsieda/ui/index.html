@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>念思 wangsiEDA</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/ui/style.css">
+</head>
+<body>
+<header>
+  <div class="brand"><b>念思 wangsiEDA</b><small>F2F 3D 签核 ECO 收敛平台 · v1.5.0</small></div>
+  <nav id="nav">
+    <a href="#/">3D 评审</a><a href="#/jobs">作业</a><a href="#/designs">候选与状态</a><a href="#/evals">评测记录</a>
+    <a href="#/agents">模型调用</a><a href="#/tools">工具 / MCP</a><a href="#/skills">经验库</a><a href="#/overview">主机</a>
+  </nav>
+  <span id="host" class="pill">host</span>
+</header>
+<main id="view"></main>
+<div id="drawer" class="drawer"><div class="dhead"><b id="dtitle"></b><button onclick="closeDrawer()">close</button></div><div id="dbody"></div></div>
+<script src="/ui/viewer3d.js"></script>
+<script src="/ui/review.js"></script>
+<script src="/ui/extras.js"></script>
+<script src="/ui/verify.js"></script>
+<script src="/ui/app.js"></script>
+<script src="/ui/chat.js"></script>
+</body>
+</html>

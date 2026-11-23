@@ -1,0 +1,107 @@
+{
+  "_说明": "复制为 wangsi_config.json 后按你的环境填写。所有路径均为计算主机上的绝对路径。不要把真实路径和密钥提交到仓库。",
+  "project_root": "/path/to/your/eco_project",
+  "results_dir": "/path/to/your/eco_project/analysis",
+  "normalized_states_json": "/path/to/NORMALIZED_STATES.json",
+  "gate_bounds_json": "/path/to/GATE_BOUNDS.json",
+  "design_registry_module": "/path/to/design_registry.py",
+  "eco_builder_module": "/path/to/eco_builder.py",
+  "model_ledger_jsonl": "/path/to/MODEL_LEDGER.jsonl",
+  "scan_roots": [
+    "/path/to/your/eco_project"
+  ],
+  "scan_exclude": [
+    "/__pycache__/"
+  ],
+  "rootfs": "/path/to/evaluator/rootfs",
+  "runtime_dir": "/path/to/evaluator/rootfs/tmp/runtime",
+  "platform_dir": "/path/to/Open3DBench/OpenROAD-3D/flow/platforms/nangate45_3D",
+  "x0_runs": {
+    "bp_fe": "/path/to/evaluator-work/<X0 run dir>"
+  },
+  "cases": [
+    "bp_fe"
+  ],
+  "case_aliases": {},
+  "scene_cases": [
+    "bp_fe"
+  ],
+  "clock_name": "CLK",
+  "clock_period_ns": {
+    "bp_fe": 1.0
+  },
+  "readbacks": {
+    "bp_fe": {
+      "derivation": "rb_bpfe_wangsi",
+      "args": "result_workroot",
+      "runtime_subdir": "readback_bpfe"
+    },
+    "bp_be": {
+      "derivation": "rb_bpbe_wangsi",
+      "args": "final_dir",
+      "runtime_subdir": "readback_bpbe"
+    }
+  },
+  "program_tag_regex": "(?<![A-Za-z0-9])F\\d{4,5}(?![0-9])",
+  "runtime_scan_subdirs": [],
+  "oss_cad_bin": "/path/to/oss-cad-suite/bin",
+  "openroad_env": "/path/to/openroad_env",
+  "nangate45_dir": "/path/to/OpenROAD/test/Nangate45",
+  "llm_env_file": "/path/to/private/llm.env",
+  "llm_model": "deepseek-flash",
+  "llm_extra": {
+    "thinking": {
+      "type": "enabled"
+    },
+    "reasoning_effort": "high"
+  },
+  "llm_max_tokens": 16000,
+  "llm_timeout_s": 300,
+  "use_default_prompts": true,
+  "default_prompt_variant": {
+    "eco_planner": "B",
+    "reflector": "C",
+    "rtl_debug": "B",
+    "pnr_diagnose": "C"
+  },
+  "host_disk_path": "/",
+  "port": 18765,
+  "derivations": {
+    "evaluator_wangsi": {
+      "source": "/path/to/validated_replica_launcher.py",
+      "replacements": [
+        [
+          "<源文件中的输出目录字面量>",
+          "V6=Path('{DERIVED}/replicas')"
+        ],
+        [
+          "<源文件中的运行目录字面量>",
+          "inside=Path('<runtime>/wangsi/replica')/run_id"
+        ]
+      ]
+    },
+    "rb_bpfe_wangsi": {
+      "source": "/path/to/readback_bp_fe.py",
+      "replacements": [
+        [
+          "<源字面量>",
+          "<替换为 wangsi 命名空间的字面量>"
+        ]
+      ]
+    },
+    "rb_bpbe_wangsi": {
+      "source": "/path/to/readback_bp_be.py",
+      "replacements": [
+        [
+          "<源字面量>",
+          "<替换为 wangsi 命名空间的字面量>"
+        ]
+      ]
+    }
+  },
+  "redact_terms": [
+    "你的用户名",
+    "你的主机别名",
+    "你的项目代号"
+  ]
+}

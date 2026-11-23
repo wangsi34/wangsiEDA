@@ -11,10 +11,15 @@ jobs:
       matrix:
         python: ["3.9", "3.10", "3.11", "3.12", "3.13"]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python }}
+      - uses: actions/checkout@v5
+      # setup-python has no 3.9 build for the current ubuntu-latest image; uv's managed Pythons cover 3.9-3.13 on any runner
+      - uses: astral-sh/setup-uv@v6
+      - name: Python ${{ matrix.python }}
+        run: |
+          uv python install ${{ matrix.python }}
+          echo "$(dirname "$(uv python find ${{ matrix.python }})")" >> "$GITHUB_PATH"
+      - name: Show Python
+        run: python3 --version && python --version
       - name: Compile
         run: python -m compileall -q cloud/wangsieda wangsi.py make_offline_package.py
       - name: Unit tests
@@ -39,8 +44,8 @@ jobs:
   demo:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
       - name: Generate the demo and query the API
@@ -59,9 +64,9 @@ jobs:
   frontend:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
-          node-version: "20"
+          node-version: "22"
       - name: JavaScript syntax
         run: for f in cloud/wangsieda/ui/*.js; do node --check "$f"; done

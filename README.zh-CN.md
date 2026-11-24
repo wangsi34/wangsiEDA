@@ -3,13 +3,15 @@
 [English](README.md) | 中文
 
 [![CI](https://github.com/wangsi34/wangsiEDA/actions/workflows/ci.yml/badge.svg)](https://github.com/wangsi34/wangsiEDA/actions/workflows/ci.yml)
-![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue)
-![License: MIT](https://img.shields.io/badge/license-MIT-green)
-![Version 1.5.1](https://img.shields.io/badge/version-1.5.1-informational)
+[![Version 1.5.1](https://img.shields.io/badge/version-1.5.1-0969da)](CHANGELOG.md)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-3776ab)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-2da44e)](LICENSE)
 
 版本 1.5.1 · MIT · Python 3.9+（只依赖标准库） · 前端无第三方依赖
 
 **面向 F2F 3D IC 的签核驱动 ECO 收敛平台**：多 Agent 规划，持久化作业引擎，3D 签核评审，以及 MCP 工具接口。
+
+![内置合成演示的 3D 签核评审界面](docs/review.png)
 
 wangsiEDA 不重新实现 EDA 流程，而是把你已经验证过的工具链统一成一个可调度、可观测、可回溯的服务。这些工具链包括 ECO 构建器、签核评测器、STA 回读和签核门。设计数据、EDA 工具和模型调用都留在计算主机上，本地只需要一个启动器和浏览器。
 

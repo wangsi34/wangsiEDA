@@ -2,6 +2,11 @@
 
 English | [中文](README.zh-CN.md)
 
+[![CI](https://github.com/wangsi34/wangsiEDA/actions/workflows/ci.yml/badge.svg)](https://github.com/wangsi34/wangsiEDA/actions/workflows/ci.yml)
+![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue)
+![License: MIT](https://img.shields.io/badge/license-MIT-green)
+![Version 1.5.1](https://img.shields.io/badge/version-1.5.1-informational)
+
 Version 1.5.1 · MIT · Python 3.9+, standard library only · no front-end dependencies
 
 **A signoff-driven ECO closure platform for face-to-face (F2F) 3D ICs.** It wraps the tools you have already validated
@@ -145,6 +150,7 @@ CI runs the unit tests on Python 3.9 to 3.13, the mock prompt evaluation, a Java
 | [docs/部署与运维.md](docs/部署与运维.md) | Deployment, systemd, operations, backup, upgrades (Chinese) |
 | [docs/接口参考.md](docs/接口参考.md) | HTTP API, MCP, 3D scene format (Chinese) |
 | [docs/提示词评测.md](docs/提示词评测.md) | Prompt evaluation results (Chinese) |
+| Module guides | [`wangsieda`](cloud/wangsieda/README.md) · [`tools`](cloud/wangsieda/tools/README.md) · [`ui`](cloud/wangsieda/ui/README.md) · [`prompts`](cloud/prompts/README.md) · [`blocks`](cloud/blocks/README.md) · [`tests`](cloud/tests/README.md) |
 | [CHANGELOG.md](CHANGELOG.md) · [SECURITY.md](SECURITY.md) · [CONTRIBUTING.md](CONTRIBUTING.md) · [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) | |
 
 ## License

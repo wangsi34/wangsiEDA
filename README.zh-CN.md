@@ -2,6 +2,11 @@
 
 [English](README.md) | 中文
 
+[![CI](https://github.com/wangsi34/wangsiEDA/actions/workflows/ci.yml/badge.svg)](https://github.com/wangsi34/wangsiEDA/actions/workflows/ci.yml)
+![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue)
+![License: MIT](https://img.shields.io/badge/license-MIT-green)
+![Version 1.5.1](https://img.shields.io/badge/version-1.5.1-informational)
+
 版本 1.5.1 · MIT · Python 3.9+（只依赖标准库） · 前端无第三方依赖
 
 **面向 F2F 3D IC 的签核驱动 ECO 收敛平台**：多 Agent 规划，持久化作业引擎，3D 签核评审，以及 MCP 工具接口。
@@ -294,6 +299,7 @@ bin/wangsictl selftest
 | [docs/配置参考.md](docs/配置参考.md) | 全部配置项、签核门字段、评测器结果约定、外部模块接口 |
 | [docs/接口参考.md](docs/接口参考.md) | HTTP API、MCP、3D 场景数据格式 |
 | [docs/提示词评测.md](docs/提示词评测.md) | 内置提示词三个版本的真实模型评测结果与默认版本的理由 |
+| 模块导读 | [`wangsieda`](cloud/wangsieda/README.md) · [`tools`](cloud/wangsieda/tools/README.md) · [`ui`](cloud/wangsieda/ui/README.md) · [`prompts`](cloud/prompts/README.md) · [`blocks`](cloud/blocks/README.md) · [`tests`](cloud/tests/README.md) |
 | [CHANGELOG.md](CHANGELOG.md) · [SECURITY.md](SECURITY.md) · [CONTRIBUTING.md](CONTRIBUTING.md) | 更新记录、安全说明、贡献指南 |
 
 ## 测试

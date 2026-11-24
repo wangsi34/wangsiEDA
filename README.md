@@ -3,9 +3,9 @@
 English | [中文](README.zh-CN.md)
 
 [![CI](https://github.com/wangsi34/wangsiEDA/actions/workflows/ci.yml/badge.svg)](https://github.com/wangsi34/wangsiEDA/actions/workflows/ci.yml)
-![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue)
-![License: MIT](https://img.shields.io/badge/license-MIT-green)
-![Version 1.5.1](https://img.shields.io/badge/version-1.5.1-informational)
+[![Version 1.5.1](https://img.shields.io/badge/version-1.5.1-0969da)](CHANGELOG.md)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-3776ab)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-2da44e)](LICENSE)
 
 Version 1.5.1 · MIT · Python 3.9+, standard library only · no front-end dependencies
 

@@ -140,7 +140,7 @@ CI runs the unit tests on Python 3.9 to 3.13, the mock prompt evaluation, a Java
 
 | Document | Content |
 |---|---|
-| [README.zh-CN.md](README.zh-CN.md) | Full Chinese README |
+| [README.zh-CN.md](README.zh-CN.md) | Project overview, local demo, and setup instructions (Simplified Chinese) |
 | [docs/配置参考.md](docs/配置参考.md) | Every configuration key, gate fields, evaluator output convention, external module interfaces (Chinese) |
 | [docs/部署与运维.md](docs/部署与运维.md) | Deployment, systemd, operations, backup, upgrades (Chinese) |
 | [docs/接口参考.md](docs/接口参考.md) | HTTP API, MCP, 3D scene format (Chinese) |
